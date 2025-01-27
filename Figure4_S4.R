@@ -6,7 +6,6 @@ library(Rsubread)
 library(trqwe)
 library(ggplot2)
 library(ChIPQC)
-source("/mnt/data/user_data/xiangyu/programme/R_PACKAGES/my_code/MyBestFunction_scRNA.R")
 library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
@@ -27,11 +26,6 @@ library(GenomicRanges)
 
 
 
-***************************************************************************************
-*********  各组学数据结合TE的占比统计   ****************************************************************
-*********  各组学数据结合TE的占比统计  ***************************************************************
-*********  各组学数据结合TE的占比统计   ****************************************************************
-***************************************************************************************
 ***************************************************************************************
 
 hs_TEs <- mcreadRDS("/mnt/data/user_data/yiman/workshop/RNAseq_ref/TEtranscripts/hg38_rmsk_TE.rds",mc.cores=20)
@@ -98,7 +92,7 @@ plotHeatmap -m /mnt/data/user_data/yiman/workshop/CUT-TAG/IPM/IPM_A549/MACS3_new
  --colorList  'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' 'white,red' \
  --missingDataColor "white"
 
-####计算全部peak比例
+####################################################
 
 NF391_vs_IgG_up.TE <- read.csv(row.names=1,"/mnt/data/user_data/yiman/workshop/CUT-TAG/IPM/IPM_A549/MACS3_new/hs_q0.05_narrow/DEG/NF391.vs.IgG.up.TE.anno.csv")
 NF391_vs_IgG_up.TE$class_id <- as.character(NF391_vs_IgG_up.TE$class_id)
@@ -114,7 +108,7 @@ pdf("/mnt/data/user_data/yiman/workshop/CUT-TAG/IPM/IPM_A549/MACS3_new/hs_q0.05_
 pie1(table(NF391.peak.all$ID))
 dev.off()
 
-####计算全部peak比例v2
+####################################################
 
 NF391_vs_IgG_up.TE <- read.csv(row.names=1,"/mnt/data/user_data/yiman/workshop/CUT-TAG/IPM/IPM_A549/MACS3_new/hs_q0.05_narrow/DEG/NF391.vs.IgG.up.TE.anno.csv")
 NF391_vs_IgG_up.TE$class_id <- as.character(NF391_vs_IgG_up.TE$class_id)
@@ -175,10 +169,7 @@ pie1(table(NF391_vs_IgG_up$anno11))
 dev.off()
 
 
-#####cite by cite分析ATAC的结果
-#####cite by cite分析ATAC的结果
-#####cite by cite分析ATAC的结果
-#####cite by cite分析ATAC的结果
+######################ATAC##############################
 
 library(ChIPpeakAnno)
 
@@ -262,11 +253,7 @@ pdf("/mnt/data/user_data/yiman/workshop/ATAC_Seq/IPM/IPM_A549/outs/all.class.ATA
 pie1(table(ATAC_DEG$anno11))
 dev.off()
 
-#####cite by cite分析H3K9的结果
-#####cite by cite分析H3K9的结果
-#####cite by cite分析H3K9的结果
-#####cite by cite分析H3K9的结果
-#####cite by cite分析H3K9的结果
+######################H3K9me3##############################
 
 library(data.table)
 library(ChIPpeakAnno)
