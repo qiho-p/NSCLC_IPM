@@ -1,6 +1,6 @@
-# IPM_Fig1
+# IPM Fig.1 & Fig.S1
 
-In this pipeline, we showed the detail codes in Fig1.
+In this pipeline, we showed the detail codes in Fig.1 & Fig.S1.
 
 
 ## Fig1D
@@ -12,11 +12,11 @@ library(data.table)
 library(dplyr)
 library(RColorBrewer)
 
-IPM_mut_df <- read.csv(row.names=1,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
-ST_mut_df <- read.csv(row.names=1,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/ST.mut.final.by_company.csv")
+IPM_mut_df <- read.csv(row.names=1,"./object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
+ST_mut_df <- read.csv(row.names=1,"./object/3_Intrapulmonary_metastases/genome/panel/ST.mut.final.by_company.csv")
 
-IPM_clinical_info <- read.csv(row.names=1,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/IPM.clinical.info.v2.csv")
-ST_clinical_info <- read.csv(row.names=1,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/ST.clinical.info.csv")
+IPM_clinical_info <- read.csv(row.names=1,"./object/3_Intrapulmonary_metastases/genome/panel/IPM.clinical.info.v2.csv")
+ST_clinical_info <- read.csv(row.names=1,"./object/3_Intrapulmonary_metastases/genome/panel/ST.clinical.info.csv")
 
 aa <- unique(IPM_clinical_info$Tumor_Sample_Barcode)  #94
 
@@ -85,7 +85,7 @@ names(col) = c('Frame_Shift_Del','Missense_Mutation', 'Nonsense_Mutation', 'Mult
 
 genes <- c("EGFR","KMT2C","NOTCH3","NOTCH1","CARD11","NF1","INPP4B","SMARCA4","KRAS","BRAF","KMT2A","GATA2","TP53","PIK3R2","MYC")
 
-svg("/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/plots/oncoplot_IPM_v3.svg",width=14)
+svg("./object/3_Intrapulmonary_metastases/genome/panel/plots/oncoplot_IPM_v3.svg",width=14)
 oncoplot(maf = IPM_maf,
     clinicalFeatures = c("gender",'age_class',"pathology"),
     draw_titv = FALSE,  #TiTv plot
@@ -110,7 +110,7 @@ oncoplot(maf = IPM_maf,
     )
 dev.off()
 
-svg("/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/plots/oncoplot_ST_v2.svg")
+svg("./object/3_Intrapulmonary_metastases/genome/panel/plots/oncoplot_ST_v2.svg")
 oncoplot(maf = ST_maf,
     clinicalFeatures = c("gender",'age_class',"pathology"),
     draw_titv = FALSE,  #TiTv plot
@@ -137,14 +137,13 @@ dev.off()
 
 
 ```
-<img src="./Fig1.images/oncoplot_ST_v2.svg" alt="oncoplot_ST" width="300" />
-<img src="./Fig1.images/oncoplot_IPM_v3.svg" alt="oncoplot_IPM_v3" width="550" />
+<img src="./Fig1.images/oncoplot_ST_v2.svg" alt="oncoplot_ST" width="300" /> <img src="./Fig1.images/oncoplot_IPM_v3.svg" alt="oncoplot_IPM_v3" width="500" />
 
 ## Fig1E
 
 ```r
 
-svg("/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/plots/final_2025/colollipopPlot_KMT2C.svg")
+svg("./object/3_Intrapulmonary_metastases/genome/panel/plots/final_2025/colollipopPlot_KMT2C.svg")
 lollipopPlot2(m1 = IPM_maf, m2 = ST_maf, gene = "KMT2C", m1_name = "MT", m2_name = "ST",m1_label="all",m2_label="all",showDomainLabel = FALSE)
 dev.off()
 
@@ -155,7 +154,7 @@ dev.off()
 
 ```r
 
-IPM_mut_df <- read.csv(row.names=1,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
+IPM_mut_df <- read.csv(row.names=1,"./object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
 IPM_mut_info <- IPM_mut_df[,c("Hugo_Symbol","Tumor_Sample_Barcode","Variant_Classification")]
 table(IPM_mut_info$Variant_Classification)
 IPM_mut_info <- IPM_mut_info[which(IPM_mut_info$Variant_Classification %in% c('Frame_Shift_Del','Missense_Mutation', 'Nonsense_Mutation', 'Multi_Hit', 'Frame_Shift_Ins',
@@ -173,7 +172,7 @@ IPM_mut_patients_gene_smry <- IPM_mut_patients[which(IPM_mut_patients$Freq!=0),]
 IPM_mut_patients_gene_smry <- IPM_mut_patients_gene_smry %>% group_by(Var2) %>% summarize(mut_p=n())
 IPM_mut_patients_gene_smry <- as.data.frame(IPM_mut_patients_gene_smry)
 
-MT_mut_df <- read.csv("/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
+MT_mut_df <- read.csv("./object/3_Intrapulmonary_metastases/genome/panel/IPM.mut.by_company.v3.csv")
 MPLC_mut_df <- MT_mut_df[grep(c("P45|P47|P50"),MT_mut_df$Tumor_Sample_Barcode),]
 IPM_mut_df <- MT_mut_df[setdiff(rownames(MT_mut_df),rownames(MPLC_mut_df)),]
 
@@ -246,13 +245,64 @@ library(ggpubr)
 p <- ggdotchart(merge_data, x = "Var1", y ="pct",size="mut.pct",color="color",sorting="none",
        order=merge_data$Var1)+scale_size(range=c(1, 12))+scale_color_manual(values=c("grey","darkred"))
 
-svg(width=6,height=4.5,"/mnt/data2/userdata/yiman/object/3_Intrapulmonary_metastases/genome/panel/plots/Trunkdriver_dotchart_v3.svg")
+svg(width=6,height=4.5,"./object/3_Intrapulmonary_metastases/genome/panel/plots/Trunkdriver_dotchart_v3.svg")
 p
 dev.off() 
 
 
 ```
 <img src="./Fig1.images/Trunkdriver_dotchart_v3.svg" alt="Trunkdriver_dotchart_v3" width="500" />
+
+
+## FigS1E
+
+```r
+
+
+genes <- c("EGFR","KMT2C","NOTCH3","NOTCH1","CARD11","NF1","INPP4B","SMARCA4","KRAS","BRAF","KMT2A","GATA2","TP53","PIK3R2","MYC")
+
+IPM.genesummary <- read.csv("./object/3_Intrapulmonary_metastases/genome/panel/plots/IPM_mut_patients_gene_smry_nosplicesites.csv",row.names=1)
+IPM.genesummary <- as.data.frame(IPM.genesummary)
+IPM.genesummary$pct <- round(IPM.genesummary$AlteredSamples / 94 * 100,0)
+
+ST.genesummary <- read.csv("./object/3_Intrapulmonary_metastases/genome/panel/plots/ST_maf_info/ST_mut_patients_gene_smry_nosplicesites.csv",row.names=1)
+ST.genesummary <- as.data.frame(ST.genesummary)
+ST.genesummary$pct <- round(ST.genesummary$AlteredSamples / 35 * 100,0)
+
+all.data <- merge(ST.genesummary[,c("Hugo_Symbol","pct")],IPM.genesummary[,c("Hugo_Symbol","pct")],by="Hugo_Symbol",all=TRUE)
+colnames(all.data) <- c("Hugo_Symbol","pct_ST","pct_IPM")
+all.data <- all.data[which(all.data$Hugo_Symbol %in% genes),]
+all.data$Hugo_Symbol <- factor(all.data$Hugo_Symbol,levels=genes)
+all.data[is.na(all.data)] <- 0
+
+plot_data <- data.frame(
+  Hugo_Symbol = rep(all.data$Hugo_Symbol, 2),
+  Value = c(-all.data$pct_ST, all.data$pct_IPM),  # ST变负数
+  Group = rep(c("ST", "IPM"), each = nrow(all.data))
+)
+plot_data$Hugo_Symbol <- factor(plot_data$Hugo_Symbol,levels=rev(genes))
+plot_data$Group <- factor(plot_data$Group,levels=c("IPM","ST"))
+
+p <- ggplot(plot_data, aes(x = Value, y = Hugo_Symbol, fill = Group)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  scale_fill_manual(values = c("ST" = "#3498DB", "IPM" = "#E74C3C")) +
+  labs(x = "Percentage (%)", y = "Gene", fill = "Group") +
+  scale_x_continuous(
+    breaks = c(-50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50),
+    labels = c("50", "40", "30", "20", "10", "0", "10", "20", "30", "40", "50")
+  ) +
+  geom_vline(xintercept = 0, color = "black", size = 0.8) +
+  theme_pubr()+
+  geom_text(aes(label = abs(Value), 
+              hjust = ifelse(Value < 0, 1.1, -0.1)),
+          size = 3.5, color = "black")
+
+png(width=500,height=500,"./object/3_Intrapulmonary_metastases/genome/panel/plots/pct.sample.corect.png")
+p
+dev.off()
+
+```
+<img src="./Fig1.images/pct.sample.corect.png" alt="pct.sample" width="500" />
 
 
 
